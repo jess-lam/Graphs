@@ -2,7 +2,7 @@
 Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
-
+import collections 
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
@@ -13,26 +13,46 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError("Vertex doesn't exist")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        q = Queue()
+
+        visited = set()
+
+        q.enqueue(starting_vertex)
+
+        while q.size() > 0:
+            current_node = q.dequeue()
+
+            if current_node not in visited:
+                print(current_node)
+                visited.add(current_node)
+
+                neighbors = self.get_neighbors()
+
+                for neighbor in neighbors:
+                    q.enqueue(neighbor)
+            
 
     def dft(self, starting_vertex):
         """
